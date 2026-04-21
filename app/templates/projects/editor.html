@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}编辑 - {{ config.meta.name }}{% endblock %}
+{% block content %}
+<section class="workspace-header">
+  <div>
+    <p class="eyebrow">编辑工作台</p>
+    <h1>{{ config.meta.name }}</h1>
+    <p>{{ config.meta.subtitle }}</p>
+  </div>
+  <div class="actions">
+    <a class="button secondary" href="/projects/{{ project.id }}/preview">预览</a>
+    <a class="button" href="/projects/{{ project.id }}/export">导出</a>
+  </div>
+</section>
+
+{% if saved %}
+  <div class="alert success">已保存。</div>
+{% endif %}
+{% for error in errors %}
+  <div class="alert error">{{ error }}</div>
+{% endfor %}
+
+<section class="stats">
+  <div><strong>{{ config.dimensions|length }}</strong><span>维度</span></div>
+  <div><strong>{{ config.questions|length }}</strong><span>题目</span></div>
+  <div><strong>{{ config.results|length }}</strong><span>结果</span></div>
+  <div><strong>{{ report.errors|length }}</strong><span>错误</span></div>
+</section>
+
+<section class="panel">
+  <h2>质量检查</h2>
+  {% if report.issues %}
+    <ul class="issues">
+      {% for issue in report.issues %}
+        <li class="{{ issue.level }}"><strong>{{ issue.level }}</strong> {{ issue.message }}</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>配置检查通过。</p>
+  {% endif %}
+</section>
+
+<section class="panel">
+  <h2>配置 JSON</h2>
+  <p>当前 MVP 先用完整 JSON 编辑，核心服务已经按模块拆好，后续可以替换为表格化编辑器。</p>
+  <form method="post" action="/projects/{{ project.id }}/config">
+    <textarea class="json-editor" name="config_json" spellcheck="false">{{ config_json }}</textarea>
+    <div class="actions">
+      <button class="button" type="submit">保存配置</button>
+      <a class="button secondary" href="/projects/{{ project.id }}/preview">进入预览</a>
+    </div>
+  </form>
+</section>
+{% endblock %}

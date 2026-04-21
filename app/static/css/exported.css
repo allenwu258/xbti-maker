@@ -1,0 +1,153 @@
+:root {
+  color-scheme: light;
+  font-family: Arial, "Microsoft YaHei", sans-serif;
+  background: #f7f7f4;
+  color: #171717;
+}
+
+body {
+  margin: 0;
+}
+
+.exported-app {
+  margin: 0 auto;
+  max-width: 720px;
+  min-height: 100vh;
+  padding: 32px 18px;
+}
+
+.xbti-screen {
+  background: #ffffff;
+  border: 1px solid #deded8;
+  border-radius: 8px;
+  padding: 28px;
+}
+
+.xbti-kicker {
+  color: #2f7d45;
+  font-size: 13px;
+  font-weight: 700;
+  margin: 0 0 8px;
+}
+
+.xbti-title {
+  font-size: 34px;
+  line-height: 1.16;
+  margin: 0 0 14px;
+}
+
+.xbti-text {
+  color: #4b4b4b;
+  line-height: 1.72;
+}
+
+.xbti-button {
+  background: #171717;
+  border: 1px solid #171717;
+  border-radius: 8px;
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-flex;
+  font: inherit;
+  font-weight: 700;
+  margin-top: 18px;
+  padding: 11px 15px;
+}
+
+.xbti-button.secondary {
+  background: #ffffff;
+  color: #171717;
+}
+
+.xbti-progress {
+  color: #666666;
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.xbti-question {
+  font-size: 24px;
+  line-height: 1.35;
+  margin: 0 0 20px;
+}
+
+.xbti-options {
+  display: grid;
+  gap: 12px;
+}
+
+.xbti-option {
+  background: #ffffff;
+  border: 1px solid #cfcfc8;
+  border-radius: 8px;
+  cursor: pointer;
+  font: inherit;
+  line-height: 1.5;
+  padding: 14px;
+  text-align: left;
+}
+
+.xbti-option:hover {
+  border-color: #171717;
+}
+
+.xbti-result-code {
+  border: 1px solid #171717;
+  border-radius: 8px;
+  display: inline-flex;
+  font-weight: 800;
+  margin-bottom: 14px;
+  padding: 6px 10px;
+}
+
+.xbti-bars {
+  display: grid;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.xbti-bar {
+  align-items: center;
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 120px 1fr 32px;
+}
+
+.xbti-track {
+  background: #ecece6;
+  border-radius: 8px;
+  height: 10px;
+  overflow: hidden;
+}
+
+.xbti-fill {
+  background: #2f9e44;
+  height: 100%;
+}
+
+.xbti-debug {
+  background: #f1f1ed;
+  border-radius: 8px;
+  font-size: 13px;
+  margin-top: 18px;
+  overflow: auto;
+  padding: 12px;
+}
+
+@media (max-width: 560px) {
+  .xbti-screen {
+    padding: 22px;
+  }
+
+  .xbti-title {
+    font-size: 28px;
+  }
+
+  .xbti-question {
+    font-size: 21px;
+  }
+
+  .xbti-bar {
+    grid-template-columns: 1fr;
+  }
+}

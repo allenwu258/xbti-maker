@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ config.meta.name }}</title>
+    <style>{{ exported_css | safe }}</style>
+  </head>
+  <body>
+    <main id="xbti-app" class="exported-app"></main>
+    <script type="application/json" id="xbti-config">{{ config_json | safe }}</script>
+    <script>{{ runtime_js | safe }}</script>
+  </body>
+</html>

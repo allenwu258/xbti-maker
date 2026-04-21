@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}导出 - {{ config.meta.name }}{% endblock %}
+{% block content %}
+<section class="workspace-header">
+  <div>
+    <p class="eyebrow">HTML 导出</p>
+    <h1>{{ config.meta.name }}</h1>
+    <p>导出为无后端依赖的单文件 HTML。</p>
+  </div>
+  <div class="actions">
+    <a class="button secondary" href="/projects/{{ project.id }}/editor">返回编辑</a>
+    <a class="button secondary" href="/projects/{{ project.id }}/preview">预览</a>
+  </div>
+</section>
+
+{% for error in errors %}
+  <div class="alert error">{{ error }}</div>
+{% endfor %}
+
+<section class="panel">
+  <h2>导出前检查</h2>
+  {% if report.issues %}
+    <ul class="issues">
+      {% for issue in report.issues %}
+        <li class="{{ issue.level }}"><strong>{{ issue.level }}</strong> {{ issue.message }}</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>检查通过，可以导出。</p>
+  {% endif %}
+
+  <form method="post" action="/projects/{{ project.id }}/export">
+    <button class="button" type="submit" {% if not report.can_export %}disabled{% endif %}>导出 index.html</button>
+  </form>
+</section>
+
+<section class="panel">
+  <h2>导出历史</h2>
+  {% if exports %}
+    <ul class="exports">
+      {% for item in exports %}
+        <li><a href="/exports/{{ item.id }}">下载 index.html</a> <small>{{ item.created_at }}</small></li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>还没有导出记录。</p>
+  {% endif %}
+</section>
+{% endblock %}

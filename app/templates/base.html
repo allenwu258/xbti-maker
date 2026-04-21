@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}XBTI Maker{% endblock %}</title>
+    <link rel="stylesheet" href="/static/css/app.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="/">XBTI Maker</a>
+      <nav>
+        <a href="/">项目</a>
+        <a href="/projects/new">新建</a>
+        <a href="/project-docs/mvp">MVP 文档</a>
+      </nav>
+    </header>
+    <main class="page">
+      {% block content %}{% endblock %}
+    </main>
+  </body>
+</html>

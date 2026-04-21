@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}预览 - {{ config.meta.name }}{% endblock %}
+{% block content %}
+<section class="workspace-header">
+  <div>
+    <p class="eyebrow">答题预览</p>
+    <h1>{{ config.meta.name }}</h1>
+    <p>{{ config.meta.description }}</p>
+  </div>
+  <div class="actions">
+    <a class="button secondary" href="/projects/{{ project.id }}/editor">返回编辑</a>
+    <a class="button" href="/projects/{{ project.id }}/export">导出</a>
+  </div>
+</section>
+
+<section class="preview-shell">
+  <div id="xbti-app" class="exported-app"></div>
+  <details class="debug-panel">
+    <summary>配置 JSON</summary>
+    <pre>{{ config_json }}</pre>
+  </details>
+</section>
+
+<script type="application/json" id="xbti-config">{{ config_json | safe }}</script>
+<script src="/static/js/exported_runtime.js"></script>
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}新建测试 - XBTI Maker{% endblock %}
+{% block content %}
+<section class="panel narrow">
+  <h1>新建 XBTI 测试</h1>
+  <p>输入主题，MVP 会生成一份可编辑的结构化草稿。</p>
+
+  {% for error in errors %}
+    <div class="alert error">{{ error }}</div>
+  {% endfor %}
+
+  <form method="post" action="/projects" class="form">
+    <label>
+      项目名称
+      <input name="name" placeholder="例如: 咖啡人格 XBTI">
+    </label>
+    <label>
+      测试主题
+      <input name="topic" required placeholder="例如: 打工人精神状态">
+    </label>
+    <label>
+      目标人群
+      <input name="audience" value="泛互联网用户">
+    </label>
+    <label>
+      语气风格
+      <input name="tone" value="抽象、有梗、但最后温柔收住">
+    </label>
+    <label>
+      传播平台
+      <input name="platform" value="社交平台">
+    </label>
+    <div class="form-row">
+      <label>
+        题目数
+        <input name="question_count" type="number" min="6" max="80" value="30">
+      </label>
+      <label>
+        维度数
+        <input name="dimension_count" type="number" min="3" max="24" value="15">
+      </label>
+      <label>
+        结果数
+        <input name="result_count" type="number" min="3" max="60" value="24">
+      </label>
+    </div>
+    <label class="checkbox">
+      <input name="allow_hidden_results" type="checkbox" checked>
+      允许隐藏人格
+    </label>
+    <button class="button" type="submit">生成草稿</button>
+  </form>
+</section>
+{% endblock %}

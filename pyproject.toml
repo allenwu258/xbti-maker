@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "xbti-maker"
+version = "0.1.0"
+description = "MVP workspace for generating, editing, previewing, scoring, and exporting XBTI-style tests."
+requires-python = ">=3.11"
+dependencies = [
+  "fastapi",
+  "uvicorn",
+  "jinja2",
+  "pydantic<2",
+]
+
+[tool.setuptools.packages.find]
+include = ["app*"]
+exclude = ["storage*", "tests*", "docs*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+python_classes = ["*Tests"]

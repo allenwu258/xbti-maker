@@ -1,0 +1,174 @@
+{
+  "meta": {
+    "schema_version": "1.0",
+    "test_id": "sample",
+    "name": "样例 XBTI",
+    "subtitle": "用于测试",
+    "description": "一个样例测试。",
+    "disclaimer": "本测试仅供娱乐，不构成心理诊断或专业建议。"
+  },
+  "dimension_groups": [
+    { "id": "self", "name": "自我模型", "description": "" }
+  ],
+  "dimensions": [
+    {
+      "id": "D1",
+      "group_id": "self",
+      "name": "启动",
+      "description": "",
+      "low_label": "低",
+      "mid_label": "中",
+      "high_label": "高",
+      "weight": 1
+    },
+    {
+      "id": "D2",
+      "group_id": "self",
+      "name": "边界",
+      "description": "",
+      "low_label": "低",
+      "mid_label": "中",
+      "high_label": "高",
+      "weight": 1
+    },
+    {
+      "id": "D3",
+      "group_id": "self",
+      "name": "表达",
+      "description": "",
+      "low_label": "低",
+      "mid_label": "中",
+      "high_label": "高",
+      "weight": 1
+    }
+  ],
+  "questions": [
+    {
+      "id": "q1",
+      "text": "题 1",
+      "type": "single_choice",
+      "dimension_id": "D1",
+      "is_scored": true,
+      "is_gate": false,
+      "display_condition": null,
+      "options": [
+        { "id": "a", "text": "低", "score": 1 },
+        { "id": "b", "text": "中", "score": 2 },
+        { "id": "c", "text": "高", "score": 3 }
+      ]
+    },
+    {
+      "id": "q2",
+      "text": "题 2",
+      "type": "single_choice",
+      "dimension_id": "D2",
+      "is_scored": true,
+      "is_gate": false,
+      "display_condition": null,
+      "options": [
+        { "id": "a", "text": "低", "score": 1 },
+        { "id": "b", "text": "中", "score": 2 },
+        { "id": "c", "text": "高", "score": 3 }
+      ]
+    },
+    {
+      "id": "q3",
+      "text": "题 3",
+      "type": "single_choice",
+      "dimension_id": "D3",
+      "is_scored": true,
+      "is_gate": false,
+      "display_condition": null,
+      "options": [
+        { "id": "a", "text": "低", "score": 1 },
+        { "id": "b", "text": "中", "score": 2 },
+        { "id": "c", "text": "高", "score": 3 }
+      ]
+    },
+    {
+      "id": "q_gate",
+      "text": "隐藏题",
+      "type": "single_choice",
+      "dimension_id": null,
+      "is_scored": false,
+      "is_gate": true,
+      "display_condition": null,
+      "options": [
+        { "id": "a", "text": "普通", "score": null },
+        { "id": "b", "text": "隐藏", "score": null }
+      ]
+    }
+  ],
+  "results": [
+    {
+      "id": "AAA",
+      "code": "AAA",
+      "name": "高能者",
+      "kind": "standard",
+      "template": ["H", "H", "H"],
+      "priority": 10,
+      "headline": "全高",
+      "description": "全高结果。",
+      "share_text": ""
+    },
+    {
+      "id": "BBB",
+      "code": "BBB",
+      "name": "低能者",
+      "kind": "standard",
+      "template": ["L", "L", "L"],
+      "priority": 1,
+      "headline": "全低",
+      "description": "全低结果。",
+      "share_text": ""
+    },
+    {
+      "id": "HID",
+      "code": "HID",
+      "name": "隐藏者",
+      "kind": "hidden",
+      "template": [],
+      "priority": 100,
+      "headline": "隐藏",
+      "description": "隐藏结果。",
+      "share_text": ""
+    },
+    {
+      "id": "MIXED",
+      "code": "MIX",
+      "name": "混合",
+      "kind": "fallback",
+      "template": [],
+      "priority": -1,
+      "headline": "混合",
+      "description": "混合结果。",
+      "share_text": ""
+    }
+  ],
+  "rules": [
+    {
+      "id": "hidden",
+      "type": "answer_equals",
+      "question_id": "q_gate",
+      "option_id": "b",
+      "result_id": "HID",
+      "priority": 1000
+    }
+  ],
+  "scoring": {
+    "algorithm": "level_distance",
+    "level_mode": "normalized",
+    "low_max": 0.4,
+    "mid_max": 0.65,
+    "fallback_result_id": "MIXED",
+    "min_similarity": 60,
+    "shuffle_questions": false
+  },
+  "page": {
+    "theme": "clean_fun",
+    "primary_color": "#111111",
+    "accent_color": "#2f9e44",
+    "start_button_text": "开始测试",
+    "result_button_text": "再测一次"
+  }
+}
