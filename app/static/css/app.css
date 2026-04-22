@@ -154,7 +154,8 @@ label {
 }
 
 input,
-textarea {
+textarea,
+select {
   border: 1px solid #cfcfc8;
   border-radius: 8px;
   font: inherit;
@@ -250,6 +251,78 @@ textarea {
   padding: 16px;
 }
 
+.stream-workbench {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: minmax(320px, 420px) minmax(0, 1fr);
+  margin-top: 20px;
+}
+
+.stream-column {
+  display: grid;
+  gap: 20px;
+}
+
+.stream-panel {
+  margin-top: 0;
+}
+
+.stream-panel-header {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.stream-panel h2 {
+  margin: 0 0 14px;
+}
+
+.status-pill {
+  border: 1px solid #cfcfc8;
+  border-radius: 999px;
+  color: #555555;
+  display: inline-flex;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 6px 10px;
+}
+
+.stream-output {
+  background: #151515;
+  border-radius: 8px;
+  color: #f4f4f4;
+  font-family: Consolas, monospace;
+  font-size: 13px;
+  line-height: 1.55;
+  margin: 0;
+  max-height: 320px;
+  min-height: 220px;
+  overflow: auto;
+  padding: 16px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.stream-output.muted {
+  color: #9da3ad;
+}
+
+.result-placeholder {
+  color: #666666;
+}
+
+.helper-text {
+  color: #666666;
+  font-size: 13px;
+  margin: 0;
+}
+
+.alert.warning {
+  background: #fff8e6;
+  border: 1px solid #efd28c;
+}
+
 @media (max-width: 760px) {
   .form-row,
   .stats {
@@ -259,5 +332,9 @@ textarea {
   .workspace-header {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .stream-workbench {
+    grid-template-columns: 1fr;
   }
 }

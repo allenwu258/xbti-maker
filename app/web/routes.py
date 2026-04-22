@@ -7,6 +7,7 @@ from fastapi.templating import Jinja2Templates
 from pydantic import ValidationError
 
 from app.repositories.project_repo import ProjectRepository
+from app.core.config import ark_enabled, get_ark_model_id
 from app.schemas.brief import ThemeBrief
 from app.schemas.test_config import TestConfig
 from app.services.export_service import ExportService
@@ -41,7 +42,15 @@ def mvp_doc() -> FileResponse:
 
 @router.get("/projects/new", response_class=HTMLResponse)
 def new_project(request: Request) -> HTMLResponse:
-    return templates.TemplateResponse("projects/new.html", {"request": request, "errors": []})
+    return templates.TemplateResponse(
+        "projects/new.html",
+        {
+            "request": request,
+            "errors": [],
+            "ark_enabled": ark_enabled(),
+            "ark_model_id": get_ark_model_id(),
+        },
+    )
 
 
 @router.post("/projects")
@@ -65,7 +74,16 @@ async def create_project(request: Request):
         return RedirectResponse(f"/projects/{project_id}/editor", status_code=303)
     except (ValueError, ValidationError) as exc:
         errors.append(str(exc))
-    return templates.TemplateResponse("projects/new.html", {"request": request, "errors": errors}, status_code=400)
+    return templates.TemplateResponse(
+        "projects/new.html",
+        {
+            "request": request,
+            "errors": errors,
+            "ark_enabled": ark_enabled(),
+            "ark_model_id": get_ark_model_id(),
+        },
+        status_code=400,
+    )
 
 
 @router.get("/projects/{project_id}", response_class=HTMLResponse)
