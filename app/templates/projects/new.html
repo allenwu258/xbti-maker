@@ -1,54 +1,102 @@
 {% extends "base.html" %}
 {% block title %}新建测试 - XBTI Maker{% endblock %}
 {% block content %}
-<section class="panel narrow">
-  <h1>新建 XBTI 测试</h1>
-  <p>输入主题，MVP 会生成一份可编辑的结构化草稿。</p>
-
-  {% for error in errors %}
-    <div class="alert error">{{ error }}</div>
-  {% endfor %}
-
-  <form method="post" action="/projects" class="form">
-    <label>
-      项目名称
-      <input name="name" placeholder="例如: 咖啡人格 XBTI">
-    </label>
-    <label>
-      测试主题
-      <input name="topic" required placeholder="例如: 打工人精神状态">
-    </label>
-    <label>
-      目标人群
-      <input name="audience" value="泛互联网用户">
-    </label>
-    <label>
-      语气风格
-      <input name="tone" value="抽象、有梗、但最后温柔收住">
-    </label>
-    <label>
-      传播平台
-      <input name="platform" value="社交平台">
-    </label>
-    <div class="form-row">
-      <label>
-        题目数
-        <input name="question_count" type="number" min="6" max="80" value="30">
-      </label>
-      <label>
-        维度数
-        <input name="dimension_count" type="number" min="3" max="24" value="15">
-      </label>
-      <label>
-        结果数
-        <input name="result_count" type="number" min="3" max="60" value="24">
-      </label>
-    </div>
-    <label class="checkbox">
-      <input name="allow_hidden_results" type="checkbox" checked>
-      允许隐藏人格
-    </label>
-    <button class="button" type="submit">生成草稿</button>
-  </form>
+<section class="workspace-header">
+  <div>
+    <p class="eyebrow">Streaming Generation</p>
+    <h1>新建 XBTI 测试</h1>
+    <p>接入 Ark 流式生成，实时分开展示模型思考和结构化输出。</p>
+  </div>
 </section>
+
+<section class="stream-workbench">
+  <section class="panel">
+    <h2>主题 Brief</h2>
+    {% if ark_enabled %}
+      <div class="alert success">Ark 已配置，将默认调用 <strong>{{ ark_model_id }}</strong>。</div>
+    {% else %}
+      <div class="alert warning">Ark key 还没配置。当前可以先用本地模拟模式联调流式界面。</div>
+    {% endif %}
+    {% for error in errors %}
+      <div class="alert error">{{ error }}</div>
+    {% endfor %}
+
+    <form id="generation-form" method="post" action="/projects" class="form" data-stream-endpoint="/api/generation/stream">
+      <label>
+        项目名称
+        <input name="name" placeholder="例如: 咖啡人格 XBTI">
+      </label>
+      <label>
+        测试主题
+        <input name="topic" required placeholder="例如: 打工人精神状态">
+      </label>
+      <label>
+        目标人群
+        <input name="audience" value="泛互联网用户">
+      </label>
+      <label>
+        语气风格
+        <input name="tone" value="抽象、有梗、但最后温柔收住">
+      </label>
+      <label>
+        传播平台
+        <input name="platform" value="社交平台">
+      </label>
+      <label>
+        生成模式
+        <select name="provider">
+          <option value="ark" {% if ark_enabled %}selected{% endif %}>Ark / doubao-seed-1-6-251015</option>
+          <option value="local" {% if not ark_enabled %}selected{% endif %}>本地模拟流</option>
+        </select>
+      </label>
+      <div class="form-row">
+        <label>
+          题目数
+          <input name="question_count" type="number" min="6" max="80" value="30">
+        </label>
+        <label>
+          维度数
+          <input name="dimension_count" type="number" min="3" max="24" value="15">
+        </label>
+        <label>
+          结果数
+          <input name="result_count" type="number" min="3" max="60" value="24">
+        </label>
+      </div>
+      <label class="checkbox">
+        <input name="allow_hidden_results" type="checkbox" checked>
+        允许隐藏人格
+      </label>
+      <button id="generate-button" class="button" type="submit">开始流式生成</button>
+      <p class="helper-text">无 JavaScript 时会退回到本地同步生成。</p>
+    </form>
+  </section>
+
+  <section class="stream-column">
+    <section class="panel stream-panel">
+      <div class="stream-panel-header">
+        <h2>模型思考</h2>
+        <span id="generation-status" class="status-pill">待开始</span>
+      </div>
+      <pre id="reasoning-output" class="stream-output muted">模型的 reasoning_summary_text 流会显示在这里。</pre>
+    </section>
+
+    <section class="panel stream-panel">
+      <div class="stream-panel-header">
+        <h2>模型输出</h2>
+        <span class="status-pill">JSON</span>
+      </div>
+      <pre id="model-output" class="stream-output muted">结构化配置的 JSON 输出会实时增长。</pre>
+    </section>
+
+    <section class="panel stream-panel">
+      <h2>生成结果</h2>
+      <div id="generation-result" class="result-placeholder">
+        完成后会给出进入编辑器和预览页的链接。
+      </div>
+    </section>
+  </section>
+</section>
+
+<script src="/static/js/generation_stream.js"></script>
 {% endblock %}
